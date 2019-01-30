@@ -6,9 +6,13 @@ const express = require("express");
 const router = express.Router();
 const gravator = require("gravatar");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // import user model
 const USER_MODEL = require("../../models/User");
+
+// import JWT Secret
+const JWT_SECRET = require("../../config/keys").JWT_SECRET;
 
 /**
  * @route GET api/users
@@ -92,10 +96,27 @@ router.post("/login", (req, res) => {
      * @param user.password - user password stored in database
      */
     bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) return res.json({ msg: "Logged in successsfully" });
+      // send an error if password does not match
+      if (!isMatch)
+        return res.status(400).json({ password: "Password is incorrect" });
 
-      // send an error is password does not match
-      return res.status(400).json({ password: "Password is incorrect" });
+      // 1. if passwords match get values from user object
+      const { id, name, avatar } = user;
+
+      // 2. create JWT payload with user values
+      const payload = { id, name, avatar };
+
+      // 3. sign JWT token with payload and secret key
+      jwt.sign(payload, JWT_SECRET, { expiresIn: 3600 }, (err, token) => {
+        // if error send error
+        if (err) return res.json({ error: "Could not login with JWT token" });
+
+        // return Bearer token
+        return res.json({
+          success: true,
+          token: `Bearer ${token}`
+        });
+      });
     });
   });
 });
