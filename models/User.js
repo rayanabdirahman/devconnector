@@ -2,7 +2,7 @@
  * User Model
  **********************************************/
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema();
+const Schema = mongoose.Schema;
 
 // create schema
 const USER_SCHEMA = new Schema({
@@ -19,8 +19,7 @@ const USER_SCHEMA = new Schema({
     require: true
   },
   avatar: {
-    type: String,
-    require: true
+    type: String
   },
   date: {
     type: Date,
@@ -29,4 +28,4 @@ const USER_SCHEMA = new Schema({
 });
 
 // create model
-module.exports = USER = mongoose.model("users", USER_SCHEMA);
+module.exports = USER_MODEL = mongoose.model("users", USER_SCHEMA);
