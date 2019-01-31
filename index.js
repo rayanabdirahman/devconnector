@@ -8,7 +8,7 @@ const PORT = require("./constants").PORT;
 const app = express();
 
 // connect to database
-const MONGOOSE_CONNECT = require("./db-config/db").MONGOOSE_CONNECT;
+require("./db-config/db").MONGOOSE_CONNECT;
 
 // routes
 const users = require("./routes/api/users");
