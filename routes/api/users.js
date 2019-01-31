@@ -15,12 +15,6 @@ const USER_MODEL = require("../../models/User");
 const JWT_SECRET = require("../../config/keys").JWT_SECRET;
 
 /**
- * @route GET api/users
- * @public
- */
-router.get("/", (req, res) => res.json({ router: "user" }));
-
-/**
  * @route POST api/users/register
  * @desc Register user
  * @public
