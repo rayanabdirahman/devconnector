@@ -7,6 +7,7 @@ const router = express.Router();
 const gravator = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const passport = require("passport");
 
 // import user model
 const USER_MODEL = require("../../models/User");

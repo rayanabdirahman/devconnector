@@ -4,6 +4,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 const PORT = require("./constants").PORT;
 const app = express();
 
@@ -15,7 +16,13 @@ const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
 
-// use body parser
+// use passport middleware
+app.use(passport.initialize());
+
+// passport config
+require("./config/passport")(passport);
+
+// use body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
