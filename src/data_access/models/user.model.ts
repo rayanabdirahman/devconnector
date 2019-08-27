@@ -1,4 +1,4 @@
-import { UserSignUpModel } from './../../domain/interfaces';
+import { SignUpModel } from './../../domain/interfaces';
 import mongoose, { Schema } from 'mongoose';
 
 const UserSchema: Schema = new mongoose.Schema({
@@ -9,4 +9,4 @@ const UserSchema: Schema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-export default mongoose.model<UserSignUpModel>('User', UserSchema);
+export default mongoose.model<SignUpModel>('User', UserSchema);

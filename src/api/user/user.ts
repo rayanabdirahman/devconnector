@@ -1,12 +1,25 @@
+import { SignUpModel } from './../../domain/interfaces';
+import { AccountValidator } from './user.validation';
 import express from 'express';
+
 const router: express.Router = express.Router();
 
 /**
- * @get api/users
+ * @post api/users
  * @description Test route
  * @public
  */
-router.get('/', (req: express.Request, res: express.Response) => {
+router.post('/', (req: express.Request, res: express.Response) => {
+  const signUpModel: SignUpModel = {
+    ...req.body
+  };
+
+  const validity = AccountValidator.signUp(signUpModel);
+  if (validity.error) {
+    const { message } = validity.error;
+    return res.status(400).json({error: message});
+  }
+
   res.send('User api');
 });
 
