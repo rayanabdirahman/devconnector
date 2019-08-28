@@ -3,3 +3,7 @@ export enum GravatorEnum {
   r = 'pg',
   d = 'mm'
 }
+
+export enum ErrorMessage {
+  EMAIL_IS_TAKEN = 'Email is already taken'
+}
