@@ -15,3 +15,8 @@ export interface UserModel {
   date?: string;
   id?: string;
 }
+
+export interface LoginModel {
+  email: string;
+  password: string;
+}
