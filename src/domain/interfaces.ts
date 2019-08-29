@@ -10,7 +10,7 @@ export interface SignUpModel extends mongoose.Document {
 export interface UserModel {
   name: string;
   email: string;
-  password: string;
+  password?: string;
   avatar: string;
   date?: string;
   id?: string;

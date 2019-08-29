@@ -13,7 +13,7 @@ export const AuthGuard =  async (req: express.Request, res: express.Response, ne
 
   try {
     // Decode JWT token
-    const decoded = await jwtHelper.decodeToken(token);
+    const decoded: any = await jwtHelper.decodeToken(token);
 
     // Assign decoded user value to req.user
     req.user = decoded.user;

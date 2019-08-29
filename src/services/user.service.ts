@@ -3,7 +3,6 @@ import { SignUpModel, UserModel } from '../domain/interfaces';
 import User from '../data_access/models/user.model';
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 
 export class UserService {
 
