@@ -1,4 +1,5 @@
 import express from 'express';
+import { AuthGuard } from '../../middleware/auth';
 const router: express.Router = express.Router();
 
 /**
@@ -6,7 +7,7 @@ const router: express.Router = express.Router();
  * @description Test route
  * @public
  */
-router.get('/', (req: express.Request, res: express.Response) => {
+router.get('/', AuthGuard, (req: express.Request, res: express.Response) => {
   res.send('Auth api');
 });
 

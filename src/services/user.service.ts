@@ -63,7 +63,7 @@ export class UserService {
     let userModel: UserModel;
     let user: any;
 
-    // check is email exists
+    // check if email exists
     if (await this.isEmailTaken(model.email)) {
       throw new Error(ErrorMessage.EMAIL_IS_TAKEN);
     }
