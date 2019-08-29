@@ -1,7 +1,7 @@
 import { SignUpModel } from './../../domain/interfaces';
 import * as Joi from '@hapi/joi';
 
-export class AccountValidator {
+export class UserValidator {
 
   private static signUpSchema: Joi.ObjectSchema = Joi.object({
     name: Joi.string().required(),
