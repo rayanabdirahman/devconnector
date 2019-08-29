@@ -82,11 +82,11 @@ export class UserService {
 
     user = new User(userModel);
 
-    // save user to DB
-    await user.save();
-
     // encrypt password
     user.password = await this.encryptPassword(password);
+
+    // save user to DB
+    await user.save();
 
     return user;
   }

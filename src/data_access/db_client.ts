@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { MongoCallback, MongoClient } from 'mongodb';
 
 const MONGO_URI: string = `${process.env.MONGO_URI}`
 
@@ -14,4 +13,4 @@ const getMongoDbClient = async () => {
   }
 }
 
-export {getMongoDbClient}
+export { getMongoDbClient }
