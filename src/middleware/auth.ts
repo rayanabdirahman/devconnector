@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
 import express from 'express';
+import { jwtHelper } from './../helpers/jwt-helper';
 import { ErrorMessage } from '../domain/enums';
 
-export const AuthGuard =  (req: express.Request, res: express.Response, next: express.NextFunction) => {
+export const AuthGuard =  async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   // get JWT token from request header
   const token = req.header('x-auth-token');
 
@@ -13,7 +13,7 @@ export const AuthGuard =  (req: express.Request, res: express.Response, next: ex
 
   try {
     // Decode JWT token
-    const decoded = jwt.verify(token, `${process.env.JWT_SECRET}`);
+    const decoded = await jwtHelper.decodeToken(token);
 
     // Assign decoded user value to req.user
     req.user = decoded.user;

@@ -1,3 +1,4 @@
+import { jwtHelper } from './../../helpers/jwt-helper';
 import { UserService } from '../../services/user.service';
 import { SignUpModel, UserModel } from './../../domain/interfaces';
 import { UserValidator } from './user.validation';
@@ -30,7 +31,7 @@ export class UserController {
       const user: UserModel = await this.userService.signUp(signUpModel);
 
       // sign JWT token with user model;
-      const token: string = await this.userService.signJWTToken(user);
+      const token: string = await jwtHelper.signJWTToken(user);
 
       // return users JWT
       return res.status(200).json({ token });

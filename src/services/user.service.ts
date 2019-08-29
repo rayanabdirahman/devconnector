@@ -43,22 +43,6 @@ export class UserService {
     return await bcrypt.hash(password, salt);
   }
 
-  /**
-   * Signs JWT token using user id
-   * @returns { string } 
-   */
-  async signJWTToken(user: UserModel): Promise<string>  {
-    const { id } = user;
-
-    const JWT_PAYLOAD = {
-      user: {
-        id
-      }
-    };
-
-    return await jwt.sign(JWT_PAYLOAD, `${process.env.JWT_SECRET}`, {expiresIn: `${process.env.JWT_EXPIRES_IN}`});
-  } 
-
   async signUp(model: SignUpModel): Promise<UserModel> {
     let userModel: UserModel;
     let user: any;
