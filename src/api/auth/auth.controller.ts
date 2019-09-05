@@ -1,5 +1,6 @@
+import bcrypt  from 'bcryptjs';
 import { AuthValidator } from './auth.validator';
-import { LoginModel, UserModel } from './../../domain/interfaces';
+import { LoginModel} from './../../domain/interfaces';
 import express from 'express';
 import { AuthService } from '../../services/auth.service';
 import { ErrorMessage } from '../../domain/enums';
@@ -23,7 +24,7 @@ export class AuthController {
       res.status(500).json({ error: error.message })
     }
   }
-
+  
   login = async (req: express.Request, res: express.Response) => {
     try {
       const loginModel: LoginModel = {
@@ -36,9 +37,17 @@ export class AuthController {
         return res.status(400).json({ error: message })
       }
 
+      // check if user email exists in DB
       const user = await this.authService.findOneUser(loginModel.email);
       
       if (!user) {
+        return res.status(400).json({ error: ErrorMessage.INVALID_DETAILS});
+      }
+
+      // check whether password is correct
+      const isMatch = await bcrypt.compare(loginModel.password, user.password);
+
+      if (!isMatch) {
         return res.status(400).json({ error: ErrorMessage.INVALID_DETAILS});
       }
 

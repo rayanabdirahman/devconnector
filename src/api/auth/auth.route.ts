@@ -14,7 +14,7 @@ router.get('/', AuthGuard, authController.authoriseUser);
 
 /**
  * @post api/auth
- * @description
+ * @description Authenticate user and get JWT Token
  * @public
  */
 router.post('/', authController.login);
