@@ -8,7 +8,7 @@ const authController: AuthController = new AuthController();
 /**
  * @get api/auth
  * @description
- * @public
+ * @private
  */
 router.get('/', AuthGuard, authController.authoriseUser);
 

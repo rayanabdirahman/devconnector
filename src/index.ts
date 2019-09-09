@@ -6,7 +6,7 @@ dotenv.config();
 import { getMongoDbClient } from './data_access/db_client';
 import { router as auth } from './api/auth/auth.route';
 import { router as post } from './api/post/post';
-import { router as profile } from './api/profile/profile';
+import { router as profile } from './api/profile/profile.route';
 import { router as user } from './api/user/user.route';
 
 const PORT = process.env.PORT || '5000';
