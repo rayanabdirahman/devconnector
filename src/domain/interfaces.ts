@@ -11,8 +11,8 @@ export interface UserModel {
   name: string;
   email: string;
   password?: string;
-  avatar: string;
-  date?: string;
+  avatar?: string;
+  date?: Date;
   id?: string;
 }
 

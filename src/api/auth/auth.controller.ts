@@ -4,6 +4,7 @@ import { LoginModel} from './../../domain/interfaces';
 import express from 'express';
 import { AuthService } from '../../services/auth.service';
 import { ErrorMessage } from '../../domain/enums';
+import { jwtHelper } from '../../helpers/jwt-helper';
 
 export class AuthController {
   private authService: AuthService;
@@ -44,6 +45,7 @@ export class AuthController {
         return res.status(400).json({ error: ErrorMessage.INVALID_DETAILS});
       }
 
+      // TODO - Move this logic into seprate password compare function
       // check whether password is correct
       const isMatch = await bcrypt.compare(loginModel.password, user.password);
 
@@ -51,7 +53,11 @@ export class AuthController {
         return res.status(400).json({ error: ErrorMessage.INVALID_DETAILS});
       }
 
-      res.json({ user });
+      // sign JWT token with user details;
+      const token: string = await jwtHelper.signJWTToken(user);
+
+      // return users JWT
+      return res.status(200).json({ token });
 
     }
     catch (error) {
