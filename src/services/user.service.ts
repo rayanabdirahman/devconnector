@@ -42,6 +42,11 @@ export class UserService {
     return await bcrypt.hash(password, salt);
   }
 
+  /**
+   * Registers users into DB
+   * @param { SignUpModel } model
+   * @returns { UserModel }
+   */
   async signUp(model: SignUpModel): Promise<UserModel> {
     let userModel: UserModel;
     let user: any;
