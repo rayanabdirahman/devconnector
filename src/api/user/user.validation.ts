@@ -1,5 +1,5 @@
-import { SignUpModel } from './../../domain/interfaces';
 import * as Joi from '@hapi/joi';
+import { SignUpModel } from './../../domain/interfaces';
 
 export class UserValidator {
 
