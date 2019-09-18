@@ -55,7 +55,6 @@ export class ProfileController {
         user,
         ...profileModel
       };
-      // profile.user = req.user.id;
 
       return res.json({profile})
 
