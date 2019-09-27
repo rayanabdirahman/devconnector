@@ -47,6 +47,17 @@ export class ProfileController {
       const { skills } = req.body;
       profileModel.skills = skills.split(',').map(skill => skill.trim());
 
+      // add user social network details to profile model
+      const { twitter, facebook, linkedIn, instagram, youtube } = req.body.social;
+      profileModel.social = {
+        ...profileModel.social,
+        twitter,
+        facebook,
+        linkedIn,
+        instagram,
+        youtube
+      }
+
       // store user id
       const user = req.user.id;
 

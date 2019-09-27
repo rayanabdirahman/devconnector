@@ -10,11 +10,13 @@ export class ProfileValidator {
     bio: Joi.string(),
     status: Joi.string().required(),
     githubUserName: Joi.string(),
-    youtube: Joi.string(),
-    twitter: Joi.string(),
-    facebook: Joi.string(),
-    linkedIn: Joi.string(),
-    instagram: Joi.string(),
+    social: {
+      youtube: Joi.string(),
+      twitter: Joi.string(),
+      facebook: Joi.string(),
+      linkedIn: Joi.string(),
+      instagram: Joi.string(),
+    }
   });
 
   public static createProfile(profileModal: ProfileModel): Joi.ValidationResult<any> {
