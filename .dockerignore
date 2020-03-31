@@ -1,0 +1,13 @@
+.git
+
+# Dependency directories
+node_modules
+
+# Build folder
+build/
+
+# dotenv environment variables file
+.env
+
+# End of https://www.gitignore.io/api/node
+.now
