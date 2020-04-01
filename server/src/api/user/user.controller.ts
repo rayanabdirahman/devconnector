@@ -6,6 +6,8 @@ import UserValidator from './user.validator';
 import ApiResponse from '../../util/api-response';
 import { UserService } from '../../services/user.service';
 import TYPES from '../../types';
+import AuthGuard from '../../middleware/authguard';
+import { ExtendedRequest } from '../../custom';
 
 @injectable()
 export default class UserController implements RegistrableController {
@@ -19,7 +21,6 @@ export default class UserController implements RegistrableController {
 
   registerRoutes(app: express.Application): void {
     app.post('/api/user', this.createUser);
-    app.get('/api/user', this.getUsers);
   }
 
   private createUser = async (req: express.Request, res: express.Response): Promise<express.Response> => {
@@ -45,9 +46,5 @@ export default class UserController implements RegistrableController {
       const { message } = error;
       return ApiResponse.error(res, message);
     }
-  }
-
-  private getUsers = async (req: express.Request, res: express.Response): Promise<express.Response> => {
-    return res.send({ "GET": "USERS" });
   }
 }
