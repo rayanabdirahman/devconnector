@@ -30,6 +30,14 @@ export class UserServiceImpl implements UserService {
     return Promise.resolve(false);
   }
 
+  private gravateProfile(email: string): string {
+    return gravatar.url(email, {
+      s: GravatarEnum.SIZE,
+      r: GravatarEnum.RATING,
+      d: GravatarEnum.DEFAULT
+    });
+  }
+
   async createUser(model: SignUpModel): Promise<string> { 
     try {
       // check if user email is taken
@@ -38,11 +46,7 @@ export class UserServiceImpl implements UserService {
       }
 
       // add user avatar from gravatar
-      const avatar = gravatar.url(model.email, {
-        s: GravatarEnum.SIZE,
-        r: GravatarEnum.RATING,
-        d: GravatarEnum.DEFAULT
-      });
+      const avatar = this.gravateProfile(model.email);
 
       // encrypt user password
       const password = await BycryptHelper.encryptPassword(model.password);
