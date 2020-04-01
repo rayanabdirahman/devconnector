@@ -1,17 +1,28 @@
 import express from 'express';
-import { injectable } from "inversify";
+import { injectable, inject } from "inversify";
 import { RegistrableController } from "../registrable.controller";
 import { SignUpModel } from '../../domain/interfaces';
 import UserValidator from './user.validator';
+import ApiResponse from '../../util/api-response';
+import { UserService } from '../../services/user.service';
+import TYPES from '../../types';
 
 @injectable()
 export default class UserController implements RegistrableController {
+  private userService: UserService;
+
+  constructor(
+    @inject(TYPES.UserService) userService: UserService,
+  ) {
+    this.userService = userService;
+  }
+
   registerRoutes(app: express.Application): void {
     app.post('/api/user', this.createUser);
     app.get('/api/user', this.getUsers);
   }
 
-  async createUser(req: express.Request, res: express.Response): Promise<express.Response> {
+  private createUser = async (req: express.Request, res: express.Response): Promise<express.Response> => {
     try {
 
       const model: SignUpModel = {
@@ -22,14 +33,16 @@ export default class UserController implements RegistrableController {
       const validity = UserValidator.signUp(model);
       if (validity.error) {
         const { message } = validity.error;
-        return res.status(400).send(message);
+        return ApiResponse.error(res, message);
       }
 
-      return res.send(model)
+      const user = await this.userService.createUser(model);
+
+      return ApiResponse.success(res, user);
 
     } catch (error) {
-
-      return error
+      const { message } = error;
+      return ApiResponse.error(res, message);
     }
   }
 
