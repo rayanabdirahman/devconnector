@@ -17,12 +17,26 @@ export class UserServiceImpl implements UserService {
     this.userRepository = userRepository
   }
 
+  private async isEmailTaken(email: string): Promise<boolean> {
+    const user = await this.userRepository.findByEmail(email);
+    if (user) {
+      return Promise.resolve(true);
+    }
+
+    return Promise.resolve(false);
+  }
+
   async createUser(model: SignUpModel): Promise<UserModel> { 
     try {
+      // check if user email is taken
+      if (await this.isEmailTaken(model.email)) {
+        throw new Error('A user with this email address already exists');
+      }
+
       return await this.userRepository.create(model);
     } catch(error) {
       logger.error(`[UserService]: Unabled to create user: ${error}`)
-      return error;
+      throw error;
     }
   }
 }
