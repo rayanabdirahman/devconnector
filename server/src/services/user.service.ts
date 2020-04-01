@@ -7,9 +7,10 @@ import TYPES from "../types";
 import { UserRepository } from "../data_access/repositories/user.repository";
 import logger from "../util/logger";
 import BycryptHelper from "../util/bcrypt-helper";
+import JwtHelper from "../util/jwt-helper";
 
 export interface UserService {
-  createUser(model: SignUpModel): Promise<UserModel>
+  createUser(model: SignUpModel): Promise<string>
 }
 
 @injectable()
@@ -29,7 +30,7 @@ export class UserServiceImpl implements UserService {
     return Promise.resolve(false);
   }
 
-  async createUser(model: SignUpModel): Promise<UserModel> { 
+  async createUser(model: SignUpModel): Promise<string> { 
     try {
       // check if user email is taken
       if (await this.isEmailTaken(model.email)) {
@@ -46,13 +47,10 @@ export class UserServiceImpl implements UserService {
       // encrypt user password
       const password = await BycryptHelper.encryptPassword(model.password);
 
-      const user = {
-        ...model,
-        avatar,
-        password
-      }
+      const user = await this.userRepository.create({ ...model, avatar, password });
 
-      return await this.userRepository.create(user);
+      // sign JWT token
+      return await JwtHelper.sign(user);
 
     } catch(error) {
       logger.error(`[UserService]: Unabled to create user: ${error}`)

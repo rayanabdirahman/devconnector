@@ -11,7 +11,8 @@ export interface UserRepository {
 @injectable()
 export class UserRepositoryImpl implements UserRepository {
   async create(model: SignUpModel): Promise<UserModel> {
-    return await User.create(model)
+    const user = new User(model);
+    return await user.save();
   }
 
   async findByEmail(email: string): Promise<UserModel | null> {

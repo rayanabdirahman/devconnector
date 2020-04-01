@@ -36,9 +36,10 @@ export default class UserController implements RegistrableController {
         return ApiResponse.error(res, message);
       }
 
-      const user = await this.userService.createUser(model);
+      // return JWT token for registered user
+      const token = await this.userService.createUser(model);
 
-      return ApiResponse.success(res, user);
+      return ApiResponse.success(res, { token });
 
     } catch (error) {
       const { message } = error;
