@@ -6,6 +6,7 @@ import { UserModel } from "../data_access/interfaces";
 import TYPES from "../types";
 import { UserRepository } from "../data_access/repositories/user.repository";
 import logger from "../util/logger";
+import BycryptHelper from "../util/bcrypt-helper";
 
 export interface UserService {
   createUser(model: SignUpModel): Promise<UserModel>
@@ -36,18 +37,23 @@ export class UserServiceImpl implements UserService {
       }
 
       // add user avatar from gravatar
-      const avatar = gravatar.profile_url(model.email, {
+      const avatar = gravatar.url(model.email, {
         s: GravatarEnum.SIZE,
         r: GravatarEnum.RATING,
         d: GravatarEnum.DEFAULT
       });
 
+      // encrypt user password
+      const password = await BycryptHelper.encryptPassword(model.password);
+
       const user = {
         ...model,
-        avatar
+        avatar,
+        password
       }
 
       return await this.userRepository.create(user);
+
     } catch(error) {
       logger.error(`[UserService]: Unabled to create user: ${error}`)
       throw error;
