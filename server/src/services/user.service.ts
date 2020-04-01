@@ -2,7 +2,7 @@ import { injectable, inject } from "inversify";
 import gravatar from 'gravatar';
 import { SignUpModel } from "../domain/interfaces";
 import { GravatarEnum } from "../domain/enums";
-import { UserModel } from "../data_access/interfaces";
+import { LoggedInUserModel } from "../data_access/interfaces";
 import TYPES from "../types";
 import { UserRepository } from "../data_access/repositories/user.repository";
 import logger from "../util/logger";
@@ -11,6 +11,7 @@ import JwtHelper from "../util/jwt-helper";
 
 export interface UserService {
   createUser(model: SignUpModel): Promise<string>
+  findUser(_id: string): Promise<LoggedInUserModel | null>
 }
 
 @injectable()
@@ -58,6 +59,21 @@ export class UserServiceImpl implements UserService {
 
     } catch(error) {
       logger.error(`[UserService]: Unabled to create user: ${error}`)
+      throw error;
+    }
+  }
+
+  async findUser(_id: string): Promise<LoggedInUserModel | null> { 
+    try {
+      const user = await this.userRepository.findById(_id);
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      return user;
+
+    } catch(error) {
+      logger.error(`[UserService]: Unabled to find user: ${error}`)
       throw error;
     }
   }

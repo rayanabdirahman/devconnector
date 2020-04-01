@@ -8,3 +8,11 @@ export interface UserModel extends mongoose.Document {
   avatar: string;
   date: Date
 }
+
+export interface LoggedInUserModel {
+  _id: mongoose.Types.ObjectId;
+  email: string;
+  name: string;
+  avatar: string;
+  date: Date;
+}

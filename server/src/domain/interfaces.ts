@@ -4,3 +4,8 @@ export interface SignUpModel {
   password: string;
   avatar?: string;
 }
+
+export interface LoginModel {
+  email: string;
+  password: string;
+}
