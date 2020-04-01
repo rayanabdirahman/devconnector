@@ -3,11 +3,14 @@ import { RegistrableController } from './api/registrable.controller';
 import container from './inversify.config';
 import TYPES from './types';
 import logger from './util/logger';
+import connectToDbClient from './data_access/db_client';
 
 export default (): Promise<express.Application> => {
   return new Promise<express.Application>(async (resolve, reject) => {
     try {
       const app = express();
+
+      connectToDbClient(); // connect to database
 
       // middleware
       app.use(express.json());
