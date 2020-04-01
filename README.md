@@ -13,7 +13,7 @@
 ##### Backend
 
 * [MongoDb](https://www.mongodb.com/) - No SQL database
-* [Express (Node)](https://maven.apache.org/) - Node framework
+* [Express (Node)](https://expressjs.com/) - Node framework
 * [Typescript](https://www.typescriptlang.org/) - Static typing for Javascript
 
 ### Scripts
