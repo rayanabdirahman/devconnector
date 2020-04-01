@@ -1,7 +1,7 @@
 {
-  "name": "devconnector",
+  "name": "devconnector-api",
   "version": "1.0.0",
-  "description": "A Social Media App Built With The MERN Stack",
+  "description": "API Built Using Docker, Typescript, Express and MongoDb",
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./build && tsc -p ./",
