@@ -1,5 +1,7 @@
 import { injectable, inject } from "inversify";
+import gravatar from 'gravatar';
 import { SignUpModel } from "../domain/interfaces";
+import { GravatarEnum } from "../domain/enums";
 import { UserModel } from "../data_access/interfaces";
 import TYPES from "../types";
 import { UserRepository } from "../data_access/repositories/user.repository";
@@ -33,7 +35,19 @@ export class UserServiceImpl implements UserService {
         throw new Error('A user with this email address already exists');
       }
 
-      return await this.userRepository.create(model);
+      // add user avatar from gravatar
+      const avatar = gravatar.profile_url(model.email, {
+        s: GravatarEnum.SIZE,
+        r: GravatarEnum.RATING,
+        d: GravatarEnum.DEFAULT
+      });
+
+      const user = {
+        ...model,
+        avatar
+      }
+
+      return await this.userRepository.create(user);
     } catch(error) {
       logger.error(`[UserService]: Unabled to create user: ${error}`)
       throw error;
