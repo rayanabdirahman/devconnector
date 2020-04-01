@@ -10,7 +10,7 @@ const JwtHelper: JwtHelper = {
   async sign(user: UserModel): Promise<string> {
     const payload = {
       user: {
-        id: user._id
+        _id: user._id
       }
     }
     return await jwt.sign(payload, `${process.env.JWT_SECRET}`, {expiresIn: `${process.env.JWT_EXPIRES_IN}`})
