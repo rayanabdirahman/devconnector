@@ -7,7 +7,7 @@ import { UserService, UserServiceImpl } from "./services/user.service";
 import { UserRepository, UserRepositoryImpl } from "./data_access/repositories/user.repository";
 import AccountController from "./api/account/account.controller";
 import { AccountService, AccountServiceImpl } from "./services/account.service";
-import ProfileController from "./api/profile/prodile.controller";
+import ProfileController from "./api/profile/profile.controller";
 import { ProfileService, ProfileServiceImpl } from "./services/profile.service";
 import { ProfileRepository, ProfileRepositoryImpl } from "./data_access/repositories/profile.repository";
 
