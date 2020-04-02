@@ -8,6 +8,7 @@ import { UserRepository, UserRepositoryImpl } from "./data_access/repositories/u
 import AccountController from "./api/account/account.controller";
 import { AccountService, AccountServiceImpl } from "./services/account.service";
 import ProfileController from "./api/profile/prodile.controller";
+import { ProfileService, ProfileServiceImpl } from "./services/profile.service";
 
 const container = new Container();
 
@@ -19,6 +20,7 @@ container.bind<RegistrableController>(TYPES.Controller).to(ProfileController)
 // servies
 container.bind<UserService>(TYPES.UserService).to(UserServiceImpl);
 container.bind<AccountService>(TYPES.AccountService).to(AccountServiceImpl);
+container.bind<ProfileService>(TYPES.ProfileService).to(ProfileServiceImpl);
 
 // repository
 container.bind<UserRepository>(TYPES.UserRepository).to(UserRepositoryImpl);
