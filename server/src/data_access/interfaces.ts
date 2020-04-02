@@ -24,11 +24,11 @@ export interface ProfileModel extends mongoose.Document {
   website?: string;
   location?: string;
   status: string;
-  skills: [string],
+  skills: string[],
   bio?: string;
   githubusername?: string;
-  experience: [UserExperience];
-  education: [UserEducation];
+  experience: UserExperience[];
+  education: UserEducation[];
   social: UserSocialMedia;
   date: Date
 };
@@ -38,8 +38,8 @@ export interface UserExperience {
   company: string;
   location?: string;
   from: Date;
-  to: Date;
-  current: boolean,
+  to?: Date;
+  current?: boolean,
   description?: string
 }
 
@@ -48,8 +48,8 @@ export interface UserEducation {
   degree: string;
   fieldofstudy: string;
   from: Date;
-  to: Date;
-  current: boolean,
+  to?: Date;
+  current?: boolean,
   description?: string
 }
 
