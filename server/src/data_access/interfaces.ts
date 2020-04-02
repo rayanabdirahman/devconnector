@@ -19,7 +19,7 @@ export interface LoggedInUserModel {
 
 
 export interface ProfileModel extends mongoose.Document {
-  user: mongoose.Schema.Types.ObjectId;
+  user: mongoose.Types.ObjectId;
   company?: string;
   website?: string;
   location?: string;

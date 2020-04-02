@@ -9,6 +9,7 @@ import AccountController from "./api/account/account.controller";
 import { AccountService, AccountServiceImpl } from "./services/account.service";
 import ProfileController from "./api/profile/prodile.controller";
 import { ProfileService, ProfileServiceImpl } from "./services/profile.service";
+import { ProfileRepository, ProfileRepositoryImpl } from "./data_access/repositories/profile.repository";
 
 const container = new Container();
 
@@ -24,5 +25,6 @@ container.bind<ProfileService>(TYPES.ProfileService).to(ProfileServiceImpl);
 
 // repository
 container.bind<UserRepository>(TYPES.UserRepository).to(UserRepositoryImpl);
+container.bind<ProfileRepository>(TYPES.ProfileRepository).to(ProfileRepositoryImpl);
 
 export default container;

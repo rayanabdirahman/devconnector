@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { ProfileModel } from '../interfaces';
 
 const ProfileSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  user: { type: mongoose.Types.ObjectId, ref: 'User' },
   company: { type: String },
   website: { type: String },
   location: { type: String },

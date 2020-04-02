@@ -19,14 +19,14 @@ export default class ProfileController implements RegistrableController {
   }
 
   registerRoutes(app: express.Application): void {
-    app.get('/api/profile/me', AuthGuard, this.getProfile);
+    app.get('/api/profile/me', AuthGuard, this.getCurrentUserProfile);
   }
 
   /**
    * @get current users profile
    * @private
    */
-  private getProfile = async (req: ExtendedRequest, res: express.Response): Promise<express.Response> => {
+  private getCurrentUserProfile = async (req: ExtendedRequest, res: express.Response): Promise<express.Response> => {
     try {
 
       const user: JwtUserPayload = {
@@ -34,9 +34,9 @@ export default class ProfileController implements RegistrableController {
       }
 
       // return profile for current user
-      // const token = await this.profileService.createUser(model);
+      const profile = await this.profileService.getCurrentUserProfile(user._id);
 
-      return ApiResponse.success(res, { user });
+      return ApiResponse.success(res, { profile });
 
     } catch (error) {
       const { message } = error;
