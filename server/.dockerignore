@@ -10,7 +10,7 @@ node_modules
 build/
 
 # dotenv environment variables file
-.env
+# .env
 
 # End of https://www.gitignore.io/api/node
 .now
