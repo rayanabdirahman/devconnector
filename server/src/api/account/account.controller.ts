@@ -21,7 +21,7 @@ export default class AccountController implements RegistrableController {
 
   registerRoutes(app: express.Application): void {
     app.get('/api/account/authenticate', AuthGuard, this.authenticate);
-    // app.post('/api/account/login', this.login);
+    app.post('/api/account/login', this.login);
   }
 
   private authenticate = async (req: ExtendedRequest, res: express.Response): Promise<express.Response> => {
@@ -42,28 +42,28 @@ export default class AccountController implements RegistrableController {
     }
   }
 
-  // private login = async (req: express.Request, res: express.Response): Promise<express.Response> => {
-  //   try {
+  private login = async (req: express.Request, res: express.Response): Promise<express.Response> => {
+    try {
 
-  //     const model: LoginModel = {
-  //       ...req.body
-  //     }
+      const model: LoginModel = {
+        ...req.body
+      }
 
-  //     // validate request body
-  //     const validity = AccountValidator.login(model);
-  //     if (validity.error) {
-  //       const { message } = validity.error;
-  //       return ApiResponse.error(res, message);
-  //     }
+      // validate request body
+      const validity = AccountValidator.login(model);
+      if (validity.error) {
+        const { message } = validity.error;
+        return ApiResponse.error(res, message);
+      }
 
-  //     // return JWT token for registered user
-  //     const user: LoggedInUser = await this.accountService.findUser(model);
+      // return JWT token for logged in user
+      const token = await this.accountService.login(model);
 
-  //     return ApiResponse.success(res, { user });
+      return ApiResponse.success(res, { token });
 
-  //   } catch (error) {
-  //     const { message } = error;
-  //     return ApiResponse.error(res, message);
-  //   }
-  // }
+    } catch (error) {
+      const { message } = error;
+      return ApiResponse.error(res, message);
+    }
+  }
 }
