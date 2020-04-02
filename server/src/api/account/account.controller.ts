@@ -5,7 +5,7 @@ import { ExtendedRequest } from '../../custom';
 import TYPES from '../../types';
 import ApiResponse from '../../util/api-response';
 import AuthGuard from '../../middleware/authguard';
-import { LoginModel } from '../../domain/interfaces';
+import { LoginModel, JwtUserPayload } from '../../domain/interfaces';
 import AccountValidator from './account.validator';
 import { AccountService } from '../../services/account.service';
 
@@ -27,7 +27,7 @@ export default class AccountController implements RegistrableController {
   private authenticate = async (req: ExtendedRequest, res: express.Response): Promise<express.Response> => {
     try {
 
-      const model = {
+      const model: JwtUserPayload = {
         ...req.user
       };
 
