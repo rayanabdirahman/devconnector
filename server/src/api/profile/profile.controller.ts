@@ -28,11 +28,15 @@ export default class ProfileController implements RegistrableController {
    * @post create profile for current user
    * @private
    */
-  private createProfile = async (req: express.Request, res: express.Response): Promise<express.Response> => {
+  private createProfile = async (req: ExtendedRequest, res: express.Response): Promise<express.Response> => {
     try {
 
       const model: CreateProfileModel = {
         ...req.body
+      }
+
+      const user: JwtUserPayload = {
+        ...req.user
       }
 
       // validate request body
@@ -42,7 +46,7 @@ export default class ProfileController implements RegistrableController {
         return ApiResponse.error(res, message);
       }
 
-      const profile = await this.profileService.createProfile(model);
+      const profile = await this.profileService.createProfile(model, user._id);
 
       return ApiResponse.success(res, { profile });
 
